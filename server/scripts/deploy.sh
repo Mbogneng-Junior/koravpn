@@ -69,7 +69,7 @@ echo "   ShortId     : $SHORT_ID"
 echo "   PublicKey   : $PUBLIC_KEY"
 echo "   Camouflage  : $SNI_DOMAIN"
 
-# 7. Écriture du fichier de configuration Sing-box
+# 7. Écriture du fichier de configuration Sing-box (Reality 443 + WebSocket 80/8080)
 cat << EOF > "$BASE_DIR/config/config.json"
 {
   "log": {
@@ -79,7 +79,7 @@ cat << EOF > "$BASE_DIR/config/config.json"
   "inbounds": [
     {
       "type": "vless",
-      "tag": "vless-in",
+      "tag": "vless-reality-in",
       "listen": "::",
       "listen_port": 443,
       "users": [
@@ -102,6 +102,36 @@ cat << EOF > "$BASE_DIR/config/config.json"
             "$SHORT_ID"
           ]
         }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "vless-ws-in",
+      "listen": "::",
+      "listen_port": 80,
+      "users": [
+        {
+          "uuid": "$UUID"
+        }
+      ],
+      "transport": {
+        "type": "ws",
+        "path": "/kora-ws"
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "vless-ws-8080-in",
+      "listen": "::",
+      "listen_port": 8080,
+      "users": [
+        {
+          "uuid": "$UUID"
+        }
+      ],
+      "transport": {
+        "type": "ws",
+        "path": "/kora-ws"
       }
     }
   ],
