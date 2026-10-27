@@ -61,8 +61,8 @@ KEYS_OUTPUT=$(docker run --rm ghcr.io/sagernet/sing-box:latest generate reality-
 PRIVATE_KEY=$(echo "$KEYS_OUTPUT" | grep -i "PrivateKey" | awk '{print $2}')
 PUBLIC_KEY=$(echo "$KEYS_OUTPUT" | grep -i "PublicKey" | awk '{print $2}')
 
-# Domaine de camouflage (SNI légitime avec TLS 1.3)
-SNI_DOMAIN="www.microsoft.com"
+# Domaine de camouflage (SNI légitime avec TLS 1.3 - compatible Zero-Rating Orange)
+SNI_DOMAIN="www.facebook.com"
 
 echo "   UUID        : $UUID"
 echo "   ShortId     : $SHORT_ID"
