@@ -1,0 +1,14 @@
+[Unit]
+Description=DNSTT Server (DNS Tunneling)
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/root/dnstt-server -udp :53 -privkey-file /root/dnstt.key t.koravpn.net 127.0.0.1:22022
+Restart=always
+RestartSec=3
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target
