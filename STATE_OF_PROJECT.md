@@ -47,7 +47,7 @@ Le rapport d'inspection complet est disponible dans :
 * **Clé Privée (Serveur)** : `/root/dnstt.key`
 * **Relais Amont (Upstream)** : `127.0.0.1:22022`
 * **Utilisateur VPN SSH** : `kora`
-* **Mot de passe VPN SSH** : `KoraVpn2026!`
+* **Mot de passe VPN SSH** : `<à définir : mot de passe choisi à l'installation>`
 
 ---
 
@@ -87,3 +87,23 @@ Située dans `/home/mbogneng-junior/Documents/art/Creation_contenus/Youtube/Reve
 2. **Intégration Native Kora VPN (Phase 2)** :
    * Embarquer `dnstt-client` sous forme de binaire natif Go (`libdnstt.so` ou exécutable via Gomobile) dans le projet Android de Kora VPN.
    * Lier le `VpnService` Android natif pour faire passer automatiquement tout le trafic du téléphone dans le tunnel local.
+
+---
+
+## 6. ⚠️ Statut du VPS (mis à jour le 3 novembre 2026)
+
+- **L'abonnement du VPS `104.207.80.205` est terminé.** Il ne répond plus en SSH (connexion coupée), et le ping échoue. Aucune sauvegarde des fichiers non versionnés n'a pu être faite.
+- **Rien d'irremplaçable n'a été perdu.** Le code, les scripts de déploiement et l'app sont sur GitHub. Les clés se régénèrent.
+
+### Pour reprendre le projet
+1. **Prendre un nouveau VPS** Ubuntu 24.04 (accès root). Ouvrir les ports TCP 22022, 443, 80, 8080 et UDP 53.
+2. **Vérifier le domaine `koravpn.net`** chez le registrar (encore actif ?).
+3. **Déployer** : `git clone` du dépôt, puis `server/scripts/deploy.sh` (Sing-box Reality + WS, génère un nouvel UUID/clés) et `server/dnstt/install.sh` (génère une nouvelle clé DNSTT). Libérer le port 53 si `systemd-resolved` l'occupe (voir `server/scripts/restore_to_vps.sh`).
+4. **DNS** : enregistrement **A** du serveur de noms vers la nouvelle IP, et **NS** de `t.koravpn.net` vers ce serveur de noms.
+5. **Clients** : utiliser la **nouvelle clé publique DNSTT** et le **nouveau lien `vless://`** (les anciens ne marchent plus). Remplacer l'ancienne IP dans ce fichier et dans `server/README.md`.
+6. **Compte SSH `kora`** : en créer un avec un **nouveau mot de passe** (l'ancien figure en clair plus haut, à retirer de ce fichier).
+
+### Outils disponibles
+- `server/MIGRATION.md` : guide sauvegarde et restauration.
+- `server/scripts/backup_from_vps.sh` / `restore_to_vps.sh` : utiles si vous avez de nouveau un VPS à sauvegarder.
+- Idée non faite : un script `bootstrap_new_vps.sh` qui enchaîne toutes les étapes ci-dessus.

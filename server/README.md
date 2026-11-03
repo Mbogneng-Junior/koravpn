@@ -48,5 +48,5 @@ Dans n'importe quelle application compatible DNSTT / SlowDNS (HTTP Custom, Dark 
   * Hôte : `127.0.0.1` (ou IP du VPS)
   * Port : `22022`
   * Utilisateur : `kora`
-  * Mot de passe : `KoraVpn2026!`
+  * Mot de passe : `<à définir : mot de passe choisi à l'installation>`
 
